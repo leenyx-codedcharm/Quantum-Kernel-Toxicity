@@ -1,0 +1,30 @@
+{
+  "tdc_version": "unknown",
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "files": {
+    "herg": {
+      "rows": 655,
+      "sha256": "35567f70e949e23a930a6fff130d071bf4efe75272d7d824b24892107808baeb",
+      "label_counts": {
+        "1.0": 451,
+        "0.0": 204
+      }
+    },
+    "herg_karim": {
+      "rows": 13445,
+      "sha256": "554f5f6db861de0c887c72e267fa5124e732536d1268808eb5095fd7ffc106d8",
+      "label_counts": {
+        "0": 6727,
+        "1": 6718
+      }
+    },
+    "dili": {
+      "rows": 475,
+      "sha256": "919e71deab7a567ee580d894f6c6e8153d0f81fcf5eba78f62b96cf58facacf3",
+      "label_counts": {
+        "0.0": 239,
+        "1.0": 236
+      }
+    }
+  }
+}
