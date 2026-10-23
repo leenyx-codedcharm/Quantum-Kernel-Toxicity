@@ -1,0 +1,17 @@
+name: qktox
+channels: [conda-forge]
+dependencies:
+  - python=3.11
+  - rdkit
+  - numpy
+  - pandas
+  - scikit-learn
+  - scipy
+  - pyyaml
+  - pytest
+  - pip
+  - pip:
+      - pytdc
+      - pennylane
+      - qiskit-machine-learning
+      - chemprop

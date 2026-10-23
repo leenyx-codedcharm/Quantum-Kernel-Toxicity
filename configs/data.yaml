@@ -1,0 +1,10 @@
+seed: 42
+datasets:
+  herg:        {tdc_name: hERG,        role: replication}
+  herg_karim:  {tdc_name: hERG_Karim,  role: main}
+  dili:        {tdc_name: DILI,        role: small-data}
+  dilirank2:   {file: data/raw/dilirank2.csv, role: external}   # manual, not in TDC
+fingerprint: {radius: 2, nbits: 2048}                 # primary novelty FP (ECFP4)
+fingerprint_alt: {radius: 2, nbits: 2048, use_features: true}   # FCFP4 robustness check
+splits: {n_repeats: 5, test_frac: 0.2, val_frac: 0.1, cluster_cutoff: 0.6}
+novelty_bins: [0.0, 0.4, 0.6, 0.8, 1.0]   # predeclare BEFORE seeing results
