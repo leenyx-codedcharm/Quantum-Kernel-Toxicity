@@ -53,6 +53,16 @@ python scripts/04_audit.py
 
 The audit verifies raw and processed availability and schemas, binary labels, curation accounting and duplicate-parent uniqueness, chemical/scaffold consistency, manifest checksums, frozen split index and novelty alignment, train/validation/test leakage, and cluster assignment coverage. It is read-only and exits non-zero if checks fail.
 
+### Molecular feature generation
+
+Generate the hERG_Karim representations from the existing raw and curated tables and the five frozen scaffold repeats:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\07_generate_features.py
+```
+
+The pipeline reads `data\raw\herg_karim.csv`, `data\processed\herg_karim.csv`, its curation log, and `data\splits\herg_karim_scaffold.json` without modifying them. It maps curated representatives to raw rows by `Drug_ID`, checks labels and molecular parent identity, confirms each split exactly partitions the curated rows without canonical-structure overlap, and records raw invalid structures, canonical duplicates, curation merges/conflicts, legacy identity discrepancies, input checksums, and split counts. Fingerprints and descriptors use the frozen curated SMILES; metadata also preserves the original SMILES, its directly canonicalized form/InChIKey, and the standardized raw form. Outputs are written to `data\processed\features\hERG_Karim\`. Split assignments in the metadata and model input files are JSON mappings with one `scaffold_rN` assignment per repeat. This stage does not fit preprocessing transforms, train models, or download pretrained weights.
+
 When experiment scripts are added, configure their seeds and settings in `configs/`, implement reusable logic in `src/qktox/`, add tests in `tests/`, and save per-molecule predictions under `results/<dataset>/<split>/<model>.csv` with columns `mol_id,y_true,p_pred`. Prediction files are derived outputs and must not be used to change the protocol based on test results.
 
 ## Repository layout
