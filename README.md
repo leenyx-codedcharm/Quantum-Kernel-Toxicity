@@ -63,6 +63,17 @@ Generate the hERG_Karim representations from the existing raw and curated tables
 
 The pipeline reads `data\raw\herg_karim.csv`, `data\processed\herg_karim.csv`, its curation log, and `data\splits\herg_karim_scaffold.json` without modifying them. It maps curated representatives to raw rows by `Drug_ID`, checks labels and molecular parent identity, confirms each split exactly partitions the curated rows without canonical-structure overlap, and records raw invalid structures, canonical duplicates, curation merges/conflicts, legacy identity discrepancies, input checksums, and split counts. Fingerprints and descriptors use the frozen curated SMILES; metadata also preserves the original SMILES, its directly canonicalized form/InChIKey, and the standardized raw form. Outputs are written to `data\processed\features\hERG_Karim\`. Split assignments in the metadata and model input files are JSON mappings with one `scaffold_rN` assignment per repeat. This stage does not fit preprocessing transforms, train models, or download pretrained weights.
 
+### Classical baselines
+
+Run a bounded development pilot, then the five-repeat baseline experiment:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\08_train_classical_baselines.py --pilot
+.\.venv\Scripts\python.exe scripts\08_train_classical_baselines.py
+```
+
+The experiment reuses the saved hERG_Karim fingerprints, descriptors, and frozen scaffold membership. LightGBM and Random Forest compare descriptor-only, fingerprint-only, and concatenated inputs; Tanimoto-SVM uses the Morgan fingerprint Tanimoto kernel. Each family receives 12 validation candidates per repeat. Hyperparameters are selected by validation AUROC; the binary decision threshold is selected by validation balanced accuracy. SVM probabilities use training-only internal calibration. Its dense float64 kernel requires about `8 * n_train * (n_train + max(n_validation, n_test))` bytes for stored matrices, in addition to the configured solver cache; blockwise construction bounds temporary products. A configurable memory guard rejects oversized splits. Official test predictions and metrics are generated only after selection and are saved per molecule under `results\herg_karim\<split>\`. Checkpoints, per-split metrics, tuning records, aggregate metrics, figures, and a manifest are under `results\classical_baselines\herg_karim\`; generated result files and model checkpoints are git-ignored.
+
 When experiment scripts are added, configure their seeds and settings in `configs/`, implement reusable logic in `src/qktox/`, add tests in `tests/`, and save per-molecule predictions under `results/<dataset>/<split>/<model>.csv` with columns `mol_id,y_true,p_pred`. Prediction files are derived outputs and must not be used to change the protocol based on test results.
 
 ## Repository layout

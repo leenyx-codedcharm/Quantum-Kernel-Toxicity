@@ -9,5 +9,7 @@ data/processed/*
 !data/processed/.gitkeep
 # data/splits ARE committed (frozen); they are small
 results/tmp/
+results/classical_baselines/
+results/herg_karim/
 *.egg-info/
 .DS_Store
