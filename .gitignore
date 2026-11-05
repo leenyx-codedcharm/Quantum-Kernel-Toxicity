@@ -13,3 +13,42 @@ results/classical_baselines/
 results/herg_karim/
 *.egg-info/
 .DS_Store
+
+# =====================================
+# Project 10 - Local files and artifacts
+# =====================================
+
+# Python environments
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Raw datasets and processed feature matrices
+data/raw/
+data/processed/
+
+# Model checkpoints
+results/**/models/
+*.joblib
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Large numerical feature arrays
+*.npy
+*.npz
+
+# Temporary files and logs
+*.log
+*.bak
+*.backup
+
+# Local secrets
+.env
+.env.*
+

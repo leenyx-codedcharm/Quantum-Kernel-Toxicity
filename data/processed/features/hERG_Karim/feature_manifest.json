@@ -1,0 +1,115 @@
+{
+  "canonical_duplicate_excess_rows": 293,
+  "canonical_duplicate_groups": 285,
+  "canonical_duplicate_rows": 578,
+  "curated_dataset_row_count": 10824,
+  "curated_file": "data/processed/herg_karim.csv",
+  "curation": {
+    "conflicting_parent_groups_excluded": 83,
+    "raw_rows_excluded_for_invalid_structures": 0,
+    "raw_rows_excluded_for_label_conflicts": 202,
+    "raw_rows_merged": 2419,
+    "same_label_parent_groups_merged": 2020
+  },
+  "dataset": "hERG_Karim",
+  "dataset_key": "herg_karim",
+  "descriptor_names": [
+    "MolWt",
+    "ExactMolWt",
+    "MolLogP",
+    "TPSA",
+    "NumHDonors",
+    "NumHAcceptors",
+    "NumRotatableBonds",
+    "HeavyAtomCount",
+    "RingCount",
+    "NumAromaticRings",
+    "NumAliphaticRings",
+    "FractionCSP3",
+    "NumHeteroatoms",
+    "FormalCharge"
+  ],
+  "feature_molecule_count": 10824,
+  "feature_structure_source": "frozen curated processed SMILES; raw originals and original-standardized identities are also preserved",
+  "fingerprint": {
+    "dtype": "uint8",
+    "n_bits": 2048,
+    "npz_keys": [
+      "fingerprints",
+      "mol_ids"
+    ],
+    "radius": 2,
+    "type": "Morgan/ECFP4",
+    "use_chirality": true
+  },
+  "generated_at_utc": "2026-11-04T20:07:54.054289+00:00",
+  "identity_discrepancies": [
+    {
+      "Drug_ID": "6430",
+      "differences": [
+        "raw_vs_curated_canonical_smiles"
+      ]
+    },
+    {
+      "Drug_ID": "2826",
+      "differences": [
+        "raw_vs_curated_canonical_smiles"
+      ]
+    },
+    {
+      "Drug_ID": "7233",
+      "differences": [
+        "stored_vs_recomputed_inchikey",
+        "stored_vs_recomputed_parent_key"
+      ]
+    }
+  ],
+  "input_sha256": {
+    "curated_dataset": "33d946db181de43fb37cb0c6f64864684587c035b68ef32338e6ce3d5fc1f32c",
+    "curation_log": "806b567977d0de95bb076ac3e40947e3395dbec2de60c46eb2e936100477dedb",
+    "feature_config": "1162fb1718c539dcdad0cea3b098a4c6a206f43e8490cba7dd0abd0be3d6801d",
+    "frozen_splits": "9445819e21204de914fad5252a6a5db8c6c0d83c17e29c455cbed6ce85335ba3",
+    "raw_dataset": "554f5f6db861de0c887c72e267fa5124e732536d1268808eb5095fd7ffc106d8"
+  },
+  "invalid_raw_structures": 0,
+  "original_canonical_duplicate_excess_rows": 0,
+  "original_canonical_duplicate_groups": 0,
+  "original_canonical_duplicate_rows": 0,
+  "raw_structures_without_inchikey": 0,
+  "source_dataset_row_count": 13445,
+  "source_file": "data/raw/herg_karim.csv",
+  "split_counts": {
+    "scaffold_r0": {
+      "test": 2165,
+      "train": 7790,
+      "val": 869
+    },
+    "scaffold_r1": {
+      "test": 2166,
+      "train": 7791,
+      "val": 867
+    },
+    "scaffold_r2": {
+      "test": 2165,
+      "train": 7792,
+      "val": 867
+    },
+    "scaffold_r3": {
+      "test": 2165,
+      "train": 7790,
+      "val": 869
+    },
+    "scaffold_r4": {
+      "test": 2205,
+      "train": 7756,
+      "val": 863
+    }
+  },
+  "valid_raw_structures": 13445,
+  "versions": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "python": "3.11.9",
+    "rdkit": "2022.09.5"
+  }
+}
