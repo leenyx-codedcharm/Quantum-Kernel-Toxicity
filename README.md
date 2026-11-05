@@ -74,6 +74,16 @@ Run a bounded development pilot, then the five-repeat baseline experiment:
 
 The experiment reuses the saved hERG_Karim fingerprints, descriptors, and frozen scaffold membership. LightGBM and Random Forest compare descriptor-only, fingerprint-only, and concatenated inputs; Tanimoto-SVM uses the Morgan fingerprint Tanimoto kernel. Each family receives 12 validation candidates per repeat. Hyperparameters are selected by validation AUROC; the binary decision threshold is selected by validation balanced accuracy. SVM probabilities use training-only internal calibration. Its dense float64 kernel requires about `8 * n_train * (n_train + max(n_validation, n_test))` bytes for stored matrices, in addition to the configured solver cache; blockwise construction bounds temporary products. A configurable memory guard rejects oversized splits. Official test predictions and metrics are generated only after selection and are saved per molecule under `results\herg_karim\<split>\`. Checkpoints, per-split metrics, tuning records, aggregate metrics, figures, and a manifest are under `results\classical_baselines\herg_karim\`; generated result files and model checkpoints are git-ignored.
 
+### Extended metrics and scientific figures
+
+Generate additional classification metrics, confusion matrices, and publication-resolution figures from the saved pilot/full predictions without retraining:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\09_generate_scientific_visualizations.py
+```
+
+Outputs are written under `results\reports\herg_karim\` and `results\visualizations\herg_karim\`. Full-run results remain distinct from the pilot, whose holdout was sampled within the frozen `scaffold_r0` training partition and is not independent test performance. See `scientific_visualization_report.md` and `figure_manifest.json` for figure descriptions and provenance. The reporting step verifies that original baseline artifacts remain unchanged.
+
 When experiment scripts are added, configure their seeds and settings in `configs/`, implement reusable logic in `src/qktox/`, add tests in `tests/`, and save per-molecule predictions under `results/<dataset>/<split>/<model>.csv` with columns `mol_id,y_true,p_pred`. Prediction files are derived outputs and must not be used to change the protocol based on test results.
 
 ## Repository layout

@@ -1,0 +1,359 @@
+{
+  "advanced_analysis": {
+    "calibration": "Saved test probabilities and labels are for evaluation only; fit calibration with validation/training data, never with test labels.",
+    "confidence_intervals": "Across-repeat intervals use the five dependent scaffold repeats descriptively; pilot has one holdout and no interval.",
+    "conformal": {
+      "instruction": "Generate dedicated train/validation calibration predictions before estimating nonconformity quantiles. Do not populate from held-out test labels.",
+      "status": "empty_template",
+      "template": "conformal_calibration_template.csv"
+    },
+    "descriptors": "data/processed/features/hERG_Karim/rdkit_descriptors.csv",
+    "feature_metadata": "data/processed/features/hERG_Karim/molecule_metadata.csv",
+    "fingerprints": "data/processed/features/hERG_Karim/ecfp4_2048.npz",
+    "full_run_novelty_source": "frozen scaffold test_novelty values from data/splits/herg_karim_scaffold.json",
+    "model_checkpoints": {
+      "full/scaffold_r0/lightgbm_combined": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r0/models/lightgbm_combined.joblib",
+      "full/scaffold_r0/lightgbm_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r0/models/lightgbm_descriptors.joblib",
+      "full/scaffold_r0/lightgbm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r0/models/lightgbm_fingerprints.joblib",
+      "full/scaffold_r0/random_forest_combined": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r0/models/random_forest_combined.joblib",
+      "full/scaffold_r0/random_forest_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r0/models/random_forest_descriptors.joblib",
+      "full/scaffold_r0/random_forest_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r0/models/random_forest_fingerprints.joblib",
+      "full/scaffold_r0/tanimoto_svm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r0/models/tanimoto_svm_fingerprints.joblib",
+      "full/scaffold_r1/lightgbm_combined": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r1/models/lightgbm_combined.joblib",
+      "full/scaffold_r1/lightgbm_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r1/models/lightgbm_descriptors.joblib",
+      "full/scaffold_r1/lightgbm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r1/models/lightgbm_fingerprints.joblib",
+      "full/scaffold_r1/random_forest_combined": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r1/models/random_forest_combined.joblib",
+      "full/scaffold_r1/random_forest_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r1/models/random_forest_descriptors.joblib",
+      "full/scaffold_r1/random_forest_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r1/models/random_forest_fingerprints.joblib",
+      "full/scaffold_r1/tanimoto_svm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r1/models/tanimoto_svm_fingerprints.joblib",
+      "full/scaffold_r2/lightgbm_combined": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r2/models/lightgbm_combined.joblib",
+      "full/scaffold_r2/lightgbm_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r2/models/lightgbm_descriptors.joblib",
+      "full/scaffold_r2/lightgbm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r2/models/lightgbm_fingerprints.joblib",
+      "full/scaffold_r2/random_forest_combined": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r2/models/random_forest_combined.joblib",
+      "full/scaffold_r2/random_forest_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r2/models/random_forest_descriptors.joblib",
+      "full/scaffold_r2/random_forest_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r2/models/random_forest_fingerprints.joblib",
+      "full/scaffold_r2/tanimoto_svm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r2/models/tanimoto_svm_fingerprints.joblib",
+      "full/scaffold_r3/lightgbm_combined": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r3/models/lightgbm_combined.joblib",
+      "full/scaffold_r3/lightgbm_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r3/models/lightgbm_descriptors.joblib",
+      "full/scaffold_r3/lightgbm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r3/models/lightgbm_fingerprints.joblib",
+      "full/scaffold_r3/random_forest_combined": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r3/models/random_forest_combined.joblib",
+      "full/scaffold_r3/random_forest_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r3/models/random_forest_descriptors.joblib",
+      "full/scaffold_r3/random_forest_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r3/models/random_forest_fingerprints.joblib",
+      "full/scaffold_r3/tanimoto_svm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r3/models/tanimoto_svm_fingerprints.joblib",
+      "full/scaffold_r4/lightgbm_combined": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r4/models/lightgbm_combined.joblib",
+      "full/scaffold_r4/lightgbm_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r4/models/lightgbm_descriptors.joblib",
+      "full/scaffold_r4/lightgbm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r4/models/lightgbm_fingerprints.joblib",
+      "full/scaffold_r4/random_forest_combined": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r4/models/random_forest_combined.joblib",
+      "full/scaffold_r4/random_forest_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r4/models/random_forest_descriptors.joblib",
+      "full/scaffold_r4/random_forest_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r4/models/random_forest_fingerprints.joblib",
+      "full/scaffold_r4/tanimoto_svm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/scaffold_r4/models/tanimoto_svm_fingerprints.joblib",
+      "pilot/pilot_scaffold_r0/lightgbm_combined": "D:/qk-tox/results/classical_baselines/herg_karim/pilot_scaffold_r0/models/lightgbm_combined.joblib",
+      "pilot/pilot_scaffold_r0/lightgbm_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/pilot_scaffold_r0/models/lightgbm_descriptors.joblib",
+      "pilot/pilot_scaffold_r0/lightgbm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/pilot_scaffold_r0/models/lightgbm_fingerprints.joblib",
+      "pilot/pilot_scaffold_r0/random_forest_combined": "D:/qk-tox/results/classical_baselines/herg_karim/pilot_scaffold_r0/models/random_forest_combined.joblib",
+      "pilot/pilot_scaffold_r0/random_forest_descriptors": "D:/qk-tox/results/classical_baselines/herg_karim/pilot_scaffold_r0/models/random_forest_descriptors.joblib",
+      "pilot/pilot_scaffold_r0/random_forest_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/pilot_scaffold_r0/models/random_forest_fingerprints.joblib",
+      "pilot/pilot_scaffold_r0/tanimoto_svm_fingerprints": "D:/qk-tox/results/classical_baselines/herg_karim/pilot_scaffold_r0/models/tanimoto_svm_fingerprints.joblib"
+    },
+    "novelty_vs_performance": "Full-run rows include frozen structural_novelty and novelty_bin; pilot rows have null novelty because their holdout was sampled within scaffold_r0 training.",
+    "prediction_columns": [
+      "experiment",
+      "split",
+      "evaluation_partition",
+      "model",
+      "mol_id",
+      "y_true",
+      "p_pred",
+      "decision_threshold_from_validation",
+      "y_pred",
+      "structural_novelty",
+      "novelty_bin"
+    ],
+    "prediction_table": "advanced_analysis_inputs.csv",
+    "selection_integrity": "No test metric was used for hyperparameter selection or threshold choice; selection audit was checked against validation tuning_trials.csv.",
+    "shap": "Use saved split checkpoint and its matching feature representation; no SHAP values were computed.",
+    "status": "prepared_inputs_only_no_advanced_analysis_performed"
+  },
+  "baseline_runs": {
+    "full": {
+      "generated_at_utc": "2026-11-05T00:37:10.666858+00:00",
+      "run_type": "full",
+      "test_set_use": "Final evaluation only; no test metric or label is used for model selection or threshold choice."
+    },
+    "pilot": {
+      "generated_at_utc": "2026-11-05T16:37:20.281685+00:00",
+      "run_type": "pilot",
+      "test_set_use": "Final evaluation only; no test metric or label is used for model selection or threshold choice."
+    }
+  },
+  "confidence_interval": {
+    "caveat": "Full repeats share molecules; intervals are descriptive, not superiority tests. A single pilot holdout has undefined SD and CI.",
+    "level": 0.95,
+    "method": "two-sided Student-t interval across split-level metrics"
+  },
+  "dataset": "hERG_Karim",
+  "dataset_summary": {
+    "class_counts": {
+      "0": 5482,
+      "1": 5342
+    },
+    "curated_molecule_count": 10824,
+    "descriptor_names": [
+      "MolWt",
+      "ExactMolWt",
+      "MolLogP",
+      "TPSA",
+      "NumHDonors",
+      "NumHAcceptors",
+      "NumRotatableBonds",
+      "HeavyAtomCount",
+      "RingCount",
+      "NumAromaticRings",
+      "NumAliphaticRings",
+      "FractionCSP3",
+      "NumHeteroatoms",
+      "FormalCharge"
+    ],
+    "molecules_without_scaffold": 17,
+    "scaffold_count_nonempty": 5784,
+    "similarity_sampling": {
+      "fingerprint": {
+        "dtype": "uint8",
+        "n_bits": 2048,
+        "npz_keys": [
+          "fingerprints",
+          "mol_ids"
+        ],
+        "radius": 2,
+        "type": "Morgan/ECFP4",
+        "use_chirality": true
+      },
+      "nearest_neighbor_queries": 512,
+      "seed": 49110,
+      "unique_random_pairs": 50000
+    }
+  },
+  "figure_dpi": 300,
+  "figures": [
+    {
+      "category": "dataset_analysis",
+      "description": "Counts of curated non-blockers and blockers from the frozen hERG_Karim feature metadata.",
+      "dpi": 300,
+      "experiment": null,
+      "path": "D:/qk-tox/results/visualizations/herg_karim/dataset_analysis/class_distribution.png",
+      "title": "Curated class distribution"
+    },
+    {
+      "category": "dataset_analysis",
+      "description": "All documented RDKit descriptor values, shown separately by class; no feature scaling or selection is applied.",
+      "dpi": 300,
+      "experiment": null,
+      "path": "D:/qk-tox/results/visualizations/herg_karim/dataset_analysis/descriptor_distributions.png",
+      "title": "RDKit descriptor distributions by class"
+    },
+    {
+      "category": "dataset_analysis",
+      "description": "Top 20 non-empty scaffold groups, a combined long-tail group, and molecules without a scaffold. Exact scaffold counts are in scaffold_counts.csv.",
+      "dpi": 300,
+      "experiment": null,
+      "path": "D:/qk-tox/results/visualizations/herg_karim/dataset_analysis/scaffold_distribution.png",
+      "title": "Scaffold distribution"
+    },
+    {
+      "category": "dataset_analysis",
+      "description": "Counts and positive rates for each of the five frozen scaffold repeats. The evaluation partitions are shown for descriptive analysis only.",
+      "dpi": 300,
+      "experiment": null,
+      "path": "D:/qk-tox/results/visualizations/herg_karim/dataset_analysis/class_balance_by_partition.png",
+      "title": "Class balance across train, validation, and test"
+    },
+    {
+      "category": "dataset_analysis",
+      "description": "Chirality-aware ECFP4 (radius 2, 2048 bits): a deterministic sample of unique random molecule pairs and nearest-neighbor similarities for a deterministic query sample. Sampling details and raw values are recorded in molecular_similarity_sample.csv.",
+      "dpi": 300,
+      "experiment": null,
+      "path": "D:/qk-tox/results/visualizations/herg_karim/dataset_analysis/molecular_similarity_distributions.png",
+      "title": "Molecular similarity distributions"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Each curve is the mean interpolated ROC across held-out split predictions; full-run ribbons show one split standard deviation. Pilot curves use only the training-partition holdout.",
+      "dpi": 300,
+      "experiment": "full",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/full/roc_curves.png",
+      "title": "Full ROC curves"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Each curve is the mean interpolated precision-recall curve across held-out split predictions; full-run ribbons show one split standard deviation. Pilot curves are not independent test performance.",
+      "dpi": 300,
+      "experiment": "full",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/full/precision_recall_curves.png",
+      "title": "Full precision-recall curves"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Mean held-out auroc by model with descriptive t-based 95% confidence intervals across repeats; pilot intervals are undefined for a single holdout.",
+      "dpi": 300,
+      "experiment": "full",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/full/auroc_comparison.png",
+      "title": "Full AUROC comparison"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Mean held-out auprc by model with descriptive t-based 95% confidence intervals across repeats; pilot intervals are undefined for a single holdout.",
+      "dpi": 300,
+      "experiment": "full",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/full/auprc_comparison.png",
+      "title": "Full AUPRC comparison"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Positive-class, macro, and weighted F1 computed from validation-selected thresholds; bars show means and descriptive 95% t intervals where repeats permit.",
+      "dpi": 300,
+      "experiment": "full",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/full/f1_comparison.png",
+      "title": "Full F1-score comparison"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Mean held-out mcc by model with descriptive t-based 95% confidence intervals across repeats; pilot intervals are undefined for a single holdout.",
+      "dpi": 300,
+      "experiment": "full",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/full/mcc_comparison.png",
+      "title": "Full MCC comparison"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Counts are summed across held-out predictions using validation-selected thresholds. Full-repeat test molecules overlap across repeats, so pooled counts are descriptive, not independent observations.",
+      "dpi": 300,
+      "experiment": "full",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/full/confusion_matrices.png",
+      "title": "Full confusion matrices"
+    },
+    {
+      "category": "split_analysis",
+      "description": "Each point is a split-level held-out metric calculated from saved molecule predictions. The pilot panel represents one training-partition holdout only.",
+      "dpi": 300,
+      "experiment": "full",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/split_analysis/full/split_level_performance.png",
+      "title": "Full split-level performance"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Each curve is the mean interpolated ROC across held-out split predictions; full-run ribbons show one split standard deviation. Pilot curves use only the training-partition holdout.",
+      "dpi": 300,
+      "experiment": "pilot",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/pilot/roc_curves.png",
+      "title": "Pilot ROC curves"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Each curve is the mean interpolated precision-recall curve across held-out split predictions; full-run ribbons show one split standard deviation. Pilot curves are not independent test performance.",
+      "dpi": 300,
+      "experiment": "pilot",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/pilot/precision_recall_curves.png",
+      "title": "Pilot precision-recall curves"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Mean held-out auroc by model with descriptive t-based 95% confidence intervals across repeats; pilot intervals are undefined for a single holdout.",
+      "dpi": 300,
+      "experiment": "pilot",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/pilot/auroc_comparison.png",
+      "title": "Pilot AUROC comparison"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Mean held-out auprc by model with descriptive t-based 95% confidence intervals across repeats; pilot intervals are undefined for a single holdout.",
+      "dpi": 300,
+      "experiment": "pilot",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/pilot/auprc_comparison.png",
+      "title": "Pilot AUPRC comparison"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Positive-class, macro, and weighted F1 computed from validation-selected thresholds; bars show means and descriptive 95% t intervals where repeats permit.",
+      "dpi": 300,
+      "experiment": "pilot",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/pilot/f1_comparison.png",
+      "title": "Pilot F1-score comparison"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Mean held-out mcc by model with descriptive t-based 95% confidence intervals across repeats; pilot intervals are undefined for a single holdout.",
+      "dpi": 300,
+      "experiment": "pilot",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/pilot/mcc_comparison.png",
+      "title": "Pilot MCC comparison"
+    },
+    {
+      "category": "model_comparison",
+      "description": "Counts are summed across held-out predictions using validation-selected thresholds. Full-repeat test molecules overlap across repeats, so pooled counts are descriptive, not independent observations.",
+      "dpi": 300,
+      "experiment": "pilot",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/model_comparison/pilot/confusion_matrices.png",
+      "title": "Pilot confusion matrices"
+    },
+    {
+      "category": "split_analysis",
+      "description": "Each point is a split-level held-out metric calculated from saved molecule predictions. The pilot panel represents one training-partition holdout only.",
+      "dpi": 300,
+      "experiment": "pilot",
+      "path": "D:/qk-tox/results/visualizations/herg_karim/split_analysis/pilot/split_level_performance.png",
+      "title": "Pilot split-level performance"
+    }
+  ],
+  "generated_at_utc": "2026-11-05T16:55:32.435823+00:00",
+  "generator": "scripts/09_generate_scientific_visualizations.py",
+  "input_sha256": {
+    "descriptors": "c46a599e638837e986da3f8cf3d1233c930b9d4c872bfa1158eaaba0777c34f0",
+    "experiment_config": "72386a1973da1cc1f37d0d5dde4b8258e259117e4c7f81148c1a033324a389e3",
+    "feature_manifest": "9d643eb53aeaa097f0b770d014698f414970741127eac28e887c969f44501298",
+    "feature_metadata": "a40ac83d38995c7f467d24a72702c803cc1e226c82503437cfcbcdb5b6bb20b1",
+    "fingerprints": "6dc033d330597db42b8af68f54ff1bd7eb6a035803ff605cf3eb51353bec000b",
+    "frozen_splits": "9445819e21204de914fad5252a6a5db8c6c0d83c17e29c455cbed6ce85335ba3"
+  },
+  "metric_names": [
+    "f1_positive",
+    "f1_macro",
+    "f1_weighted",
+    "precision",
+    "recall",
+    "auroc",
+    "auprc",
+    "balanced_accuracy",
+    "mcc",
+    "brier_score",
+    "log_loss"
+  ],
+  "preserved_original_results": {
+    "file_count": 94,
+    "sha256_of_path_digest_manifest": "33de6b7f0e093211d4e19e870da2d8709f0583b33ba9cd9d037b891e679001f4",
+    "status": "unchanged"
+  },
+  "report_files": {
+    "advanced_analysis_manifest": "results/reports/herg_karim/advanced_analysis_manifest.json",
+    "complete_metric_comparison": "results/reports/herg_karim/complete_metric_comparison.csv",
+    "confusion_matrices": "results/reports/herg_karim/confusion_matrices.csv",
+    "per_split_metrics": "results/reports/herg_karim/per_split_metrics.csv",
+    "scientific_visualization_report": "results/reports/herg_karim/scientific_visualization_report.md"
+  },
+  "reporting_input_sha256": {
+    "curated_processed_dataset": "33d946db181de43fb37cb0c6f64864684587c035b68ef32338e6ce3d5fc1f32c"
+  },
+  "selection_audit": {
+    "method": "For each model and split, the recorded selected trial was verified to attain the maximum validation AUROC and match the saved selected parameters; saved thresholds are the baseline's validation-selected thresholds.",
+    "status": "passed",
+    "test_role": "Test predictions and labels were read only to calculate final metrics and figures."
+  },
+  "software_versions": {
+    "matplotlib": "3.11.2",
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "python": "3.11.9",
+    "rdkit": "2022.09.5",
+    "scikit_learn": "1.9.1",
+    "scipy": "1.17.1"
+  }
+}
