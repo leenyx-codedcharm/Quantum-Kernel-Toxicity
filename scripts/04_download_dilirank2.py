@@ -46,7 +46,7 @@ REVIEW_CSV = RAW / "dilirank2_unmapped_review.csv"
 MODEL_CSV = RAW / "dilirank2.csv"
 
 PUG = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
-HEADERS = {"User-Agent": "CSE491-Project10-DILIrank2-research/1.0"}
+HEADERS = {"User-Agent": "CSE491-Quantum Kernel Toxicity-DILIrank2-research/1.0"}
 
 session = requests.Session()
 session.headers.update(HEADERS)
