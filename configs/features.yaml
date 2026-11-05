@@ -1,0 +1,10 @@
+dataset_key: herg_karim
+source_file: data/raw/herg_karim.csv
+processed_file: data/processed/herg_karim.csv
+curation_log: data/processed/herg_karim_curation_log.csv
+split_file: data/splits/herg_karim_scaffold.json
+output_dir: data/processed/features/hERG_Karim
+fingerprint:
+  radius: 2
+  n_bits: 2048
+  use_chirality: true
