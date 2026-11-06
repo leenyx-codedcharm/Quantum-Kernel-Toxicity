@@ -46,3 +46,12 @@ This CSE 491 research project compares simulated quantum kernels (projected and 
 - Do not silently change the research protocol. Record methodological decisions in `paper/protocol.md` before test-set evaluation; ask rather than invent unspecified scientific choices.
 - Run `python -m pytest -q` after each stage. Run the relevant script only when its required data and dependencies are available. Work on one stage at a time; report files, commands, results, assumptions, and remaining checks, then stop for approval.
 - Use a branch named `stage-<n>-<topic>`. Commit only relevant verified changes, use a message stating what and why, and never push directly to `main`.
+
+## Matched-input track and quantum code
+
+- Before any test-set evaluation, add the matched-input declarations to `paper/protocol.md` as a proposed draft and wait for team approval before committing them. Do not change the frozen datasets, scaffold splits, novelty boundaries, or existing results.
+- Generate the full RDKit 2D descriptor set from frozen curated hERG_Karim SMILES into new outputs only. For each frozen split, fit imputation, zero-variance removal, percentile clipping, standardisation, 12-component PCA, and training-range min-max scaling on training rows only. Keep the 4-component input equal to the first four columns of the nested 8-component input.
+- Compare class-prior, logistic-regression, and RBF-SVM references on those exact inputs. Use the declared 12-candidate validation budgets, select on validation AUROC, choose thresholds on validation balanced accuracy, and calibrate SVM probabilities using training data only.
+- Ask before installing PennyLane. The fixed quantum circuit applies RY then RZ on each qubit in each layer, followed by a nearest-neighbor CNOT chain; projected features include per-qubit X/Y/Z and adjacent ZZ expectations. Cross-check the NumPy implementation against PennyLane.
+- Restrict the quantum pilot to the configured scaffold_r0 training subsample and full validation partition; never load test indices or test labels in the pilot. Evaluate the declared go/no-go criteria on validation data only and wait for team approval before any full multi-split quantum experiment.
+- Keep all matched-input and pilot products in their new designated, ignored output locations. Add focused leakage and row-identity tests, record versions and runtime, and do not claim a quantum gain without results.
