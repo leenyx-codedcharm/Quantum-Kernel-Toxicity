@@ -40,7 +40,7 @@ python scripts/02_curate.py
 python scripts/03_make_splits.py
 ```
 
-These commands have not been run as part of this setup. By inspection, `01_download.py` refreshes raw files and the manifest, `02_curate.py` overwrites canonical processed files, and `03_make_splits.py` overwrites the frozen split JSON and cluster files. Do not run them in the canonical checkout. If the source workflow must be repeated, first use a disposable copy and review the script writes. A safe full rebuild of the canonical research inputs is not currently supported; non-overwriting output controls are required before one can be recommended.
+The source scripts refuse to start if any output file already exists. Supply `--output-dir <new directory>` to redirect that script's outputs; inputs remain at their canonical paths, so the three commands are not a redirected end-to-end rebuild. The frozen split files and canonical processed data are never overwritten by default.
 
 ## Pipeline and outputs
 
@@ -49,6 +49,12 @@ Run Python entry points directly from the repository root, for example:
 ```powershell
 python -m pytest -q
 python scripts/04_audit.py
+```
+
+Run both the tests and read-only audit in sequence with the fail-fast PowerShell helper:
+
+```powershell
+.\scripts\run_pipeline_check.ps1
 ```
 
 The audit verifies raw and processed availability and schemas, binary labels, curation accounting and duplicate-parent uniqueness, chemical/scaffold consistency, manifest checksums, frozen split index and novelty alignment, train/validation/test leakage, and cluster assignment coverage. It is read-only and exits non-zero if checks fail.
