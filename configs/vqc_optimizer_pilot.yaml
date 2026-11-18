@@ -1,0 +1,26 @@
+dataset_key: herg_karim
+split_name: scaffold_r0
+seed: 20261118
+source_pilot: results/quantum_fidelity/fidelity_statevector_pilot_r0_final
+qubits: 4
+feature_map:
+  type: ZZFeatureMap
+  repetitions: 1
+  entanglement: linear
+ansatz:
+  type: RealAmplitudes
+  repetitions: 2
+  entanglement: linear
+loss: cross_entropy
+optimizers:
+  SLSQP:
+    maxiter: 30
+    ftol: 1.0e-6
+  COBYLA:
+    maxiter: 30
+    rhobeg: 0.5
+    tol: 1.0e-6
+  SPSA:
+    maxiter: 30
+    learning_rate: 0.01
+    perturbation: 0.05

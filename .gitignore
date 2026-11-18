@@ -21,6 +21,8 @@ results/herg_karim/
 # Python environments
 .venv/
 venv/
+.venv-quantum/
+.venv-report/
 __pycache__/
 *.pyc
 .pytest_cache/

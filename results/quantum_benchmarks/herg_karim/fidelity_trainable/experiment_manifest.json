@@ -1,0 +1,102 @@
+{
+  "architecture": "trainable_fidelity_kernel",
+  "artifact_checksums": {
+    "circuit/trainable_fidelity.qpy": "66cb66d915fceb8ccedf7c03c71cfcd0d25d5f97514220d58487b77e0a955299",
+    "kernels/trainable_fidelity_test.npz": "c9b591049e16ca2951cdcd5a52fd7d6dcb211083a8b8dde5279b4b5775197d8a",
+    "kernels/trainable_fidelity_train.npz": "b802fbc8b41e86342bcdd1cf9fc4566214d8c78b866aa99c7e230fa99dc2ff4f",
+    "kernels/trainable_fidelity_validation.npz": "afcb94ac0bb7b8341bb91f31a0b12df5427de76c1b21831e610d48ea8a264d1f",
+    "locked_configuration.json": "1a4360d5d43f2916cc114452959c54b250dfa55c9822b56d3335f4656beb9dc5",
+    "metrics/test_metrics.json": "0896572d722fb9667a517ecb7b38f86317f37088949ea59d9ef829a14be62147",
+    "models/trainable_fidelity_checkpoint.npz": "35dfdf59e146869710c94687aedf2fc366bbefe3fffc7f7e834eaab2d495b3be",
+    "models/trainable_fidelity_svm.joblib": "d3839640230753f9d5b40a3d940b633d49258135e1e58fb5089373e2956cd776",
+    "test_predictions/trainable_fidelity_svm.csv": "a649a8a34e34ba83d344fc44c1aa1c890279b98176f99a5c593a83e0f119261e",
+    "validation_predictions/trainable_fidelity_svm.csv": "4238c43b86a1ffacb3cb11c962453d50ad86e5d9ba11a2ccbe923d2b0f36e4d4"
+  },
+  "circuit_properties": {
+    "depth": 12,
+    "feature_parameter_count": 4,
+    "gate_count": 21,
+    "qubit_count": 4,
+    "total_parameter_count": 8,
+    "training_parameter_count": 4,
+    "two_qubit_gate_count": 6
+  },
+  "completed_utc": "2026-11-18T10:17:11.478894+00:00",
+  "created_utc": "2026-11-18T10:16:56.905648+00:00",
+  "dataset": "herg_karim",
+  "input_checksums": {
+    "config": "2ff52e3550bc263477d1f026c73df085e307df3f4445bc811c9ae79e48a9d389",
+    "descriptors": "c46a599e638837e986da3f8cf3d1233c930b9d4c872bfa1158eaaba0777c34f0",
+    "fingerprints": "6dc033d330597db42b8af68f54ff1bd7eb6a035803ff605cf3eb51353bec000b",
+    "frozen_splits": "9445819e21204de914fad5252a6a5db8c6c0d83c17e29c455cbed6ce85335ba3",
+    "module": "1b52eaae53386c8b11af90fb4b89e1e458a0afbb88fdbf972855c9dafd6c355c",
+    "processed_dataset": "33d946db181de43fb37cb0c6f64864684587c035b68ef32338e6ce3d5fc1f32c",
+    "script": "b6ca27e6a3c508874fdc17be68c3d10226f9ab1d4b11de760f4e9190803ae96f",
+    "source_fidelity_lock": "7a548bdfe4b5a318a227f1c16aafe5c9bcc06f9f01fa7864203696259e1e0600",
+    "source_fidelity_preprocessing": "f8bea18542e766506c91a16700f501b307deee8c63d1a6572c7094a9c844219d"
+  },
+  "locked_configuration_sha256": "1a4360d5d43f2916cc114452959c54b250dfa55c9822b56d3335f4656beb9dc5",
+  "runtime": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "sklearn_version": "1.9.1",
+    "versions": {
+      "numpy": "2.4.6",
+      "pandas": "3.1.1",
+      "qiskit": "2.6.2",
+      "qiskit_algorithms": "0.4.0",
+      "qiskit_machine_learning": "0.9.1",
+      "scikit_learn": "1.9.1",
+      "scipy": "1.17.1"
+    }
+  },
+  "split": "scaffold_r0",
+  "status": "completed",
+  "test_metrics": {
+    "accuracy": 0.5859375,
+    "auprc": 0.4346950204565032,
+    "auroc": 0.5494704210798244,
+    "balanced_accuracy": 0.4901834151382072,
+    "brier_score": 0.23670749043141903,
+    "log_loss": 0.6663420456853777,
+    "macro_f1": 0.4296763345943674,
+    "mcc": -0.03274027998023647,
+    "positive_f1": 0.13114754098360656,
+    "precision": 0.3333333333333333,
+    "recall": 0.08163265306122448,
+    "weighted_f1": 0.4996440205968894
+  },
+  "test_prediction_seconds": 0.001452900000003865,
+  "training": {
+    "initial_point": [
+      -0.028061902146635384,
+      0.008031422441619945,
+      -0.022587399625166427,
+      -0.08993117326010808
+    ],
+    "objective_evaluations": 42,
+    "optimal_point": [
+      0.013423163657806407,
+      -0.11547678552855617,
+      0.1106747444429171,
+      -0.3419768546683777
+    ],
+    "optimal_value": 36.89347638593844,
+    "training_seconds": 17.444622600000002
+  },
+  "validation_metrics": {
+    "accuracy": 0.578125,
+    "auprc": 0.5107911104644854,
+    "auroc": 0.5234586096782118,
+    "balanced_accuracy": 0.5534266764922623,
+    "brier_score": 0.2501019330073565,
+    "log_loss": 0.6934081136436863,
+    "macro_f1": 0.5155592935239698,
+    "mcc": 0.13873311517319767,
+    "positive_f1": 0.34146341463414637,
+    "precision": 0.6086956521739131,
+    "recall": 0.23728813559322035,
+    "weighted_f1": 0.5291605340622372
+  }
+}

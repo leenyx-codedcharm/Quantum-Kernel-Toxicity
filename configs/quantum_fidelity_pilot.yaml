@@ -1,0 +1,36 @@
+dataset_key: herg_karim
+split_name: scaffold_r0
+seed: 20261118
+sample_sizes:
+  train: 64
+  val: 128
+  test: 128
+feature_representation:
+  quantum: ecfp4_plus_rdkit_descriptors
+  fingerprint_file: data/processed/features/hERG_Karim/ecfp4_2048.npz
+  descriptor_file: data/processed/features/hERG_Karim/rdkit_descriptors.csv
+  descriptor_manifest: data/processed/features/hERG_Karim/feature_manifest.json
+  fingerprint_radius: 2
+  fingerprint_bits: 2048
+  use_chirality: true
+  scaling: StandardScaler
+  pca_components: 4
+  pca_solver: full
+quantum_kernel:
+  class: FidelityStatevectorKernel
+  feature_map: ZZFeatureMap
+  qubits: 4
+  repetitions: 1
+  entanglement: linear
+  simulation: exact_statevector
+  shots: null
+  enforce_psd: true
+classical_control:
+  kernel: binary_tanimoto
+  input: ecfp4_2048
+tuning:
+  selection_metric: validation_auroc
+  threshold_metric: validation_balanced_accuracy
+  C_values: [0.01, 0.1, 1.0, 10.0, 100.0, 1000.0]
+  class_weights: [null, balanced]
+  probability: true

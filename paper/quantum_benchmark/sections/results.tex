@@ -1,0 +1,17 @@
+\section{Matched Pilot Results}
+\begin{table}[H]
+\centering
+\caption{Completed matched 128-molecule test-pilot results.}
+\label{tab:matched_results}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Model & AUROC & AUPRC & Pos. F1 & Macro-F1 & MCC & Brier & Log loss \\
+\midrule
+Fixed fidelity kernel & 0.5704 & 0.4499 & 0.4082 & 0.5205 & 0.0411 & 0.2518 & 0.6967 \\
+Tanimoto-SVM & 0.6590 & 0.5752 & 0.5225 & 0.5785 & 0.1693 & 0.2361 & 0.6717 \\
+Trainable fidelity kernel & 0.5495 & 0.4347 & 0.1311 & 0.4297 & -0.0327 & 0.2367 & 0.6663 \\
+VQC COBYLA & 0.4598 & 0.3769 & 0.3889 & 0.4715 & -0.0511 & 0.2545 & 0.7016 \\
+VQC SPSA & 0.5110 & 0.4139 & 0.5315 & 0.4693 & 0.0734 & 0.2498 & 0.6928 \\
+\bottomrule
+\end{tabular}
+\end{table}

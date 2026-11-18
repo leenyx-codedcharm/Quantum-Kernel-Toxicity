@@ -1,0 +1,23 @@
+{
+  "n_test": 128,
+  "objective_evaluations": 0,
+  "optimization_history": [],
+  "positive_rate": 0.3828125,
+  "test_metrics": {
+    "accuracy": 0.484375,
+    "auprc": 0.37691088616059476,
+    "auroc": 0.45982950142082146,
+    "balanced_accuracy": 0.4737793851717902,
+    "brier_score": 0.2544993189594622,
+    "log_loss": 0.7015771314826975,
+    "macro_f1": 0.4714714714714715,
+    "mcc": -0.0511368416205899,
+    "positive_f1": 0.3888888888888889,
+    "precision": 0.3559322033898305,
+    "recall": 0.42857142857142855,
+    "weighted_f1": 0.4908267642642643
+  },
+  "test_prediction_seconds": 1.7359308999984933,
+  "threshold": 0.5023438179941877,
+  "training_seconds": 19.07409870000083
+}

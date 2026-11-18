@@ -1,0 +1,21 @@
+dataset_key: herg_karim
+split_name: scaffold_r0
+seed: 20261118
+source_pilot: results/quantum_fidelity/fidelity_statevector_pilot_r0_final
+qubits: 4
+feature_map:
+  type: trainable_zz_feature_map
+  repetitions: 1
+  entanglement: linear
+  trainable_local_rotations: ry
+optimizer:
+  name: SLSQP
+  maxiter: 30
+  ftol: 1.0e-6
+loss:
+  type: SVCLoss
+tuning:
+  C_values: [0.01, 0.1, 1.0, 10.0, 100.0, 1000.0]
+  class_weights: [null, balanced]
+  selection_metric: validation_auroc
+  threshold_metric: validation_balanced_accuracy
