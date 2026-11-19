@@ -133,3 +133,25 @@ actually run and does not retroactively preregister it.
   eight-dimensional circuit encoding is authorized by this design; the
   existing four-input reservoir remains unchanged until that mapping is
   specified. No QM-QRC training or test evaluation is performed in this phase.
+
+## QM-QRC descriptor coverage plan (before expanded calculations)
+
+- Cover all five frozen scaffold splits. For each split, draw one seeded
+  permutation of training row positions (`20261119 + split index`) and use
+  nested prefixes of 64, 128, 256, 512, and 1,024 molecules. Sort each chosen
+  set only for row-aligned descriptor generation. Validation and test positions
+  remain the complete frozen partitions for each split.
+- Calculate descriptors once per unique molecule in the union of those maximum
+  training subsets and all validation/test partitions. The coverage plan records
+  exact IDs and partition memberships. The generator requests only the curated
+  `smiles` column; it does not load labels or compute metrics.
+- The read-only coverage plan contains 9,780 unique molecules; 28 overlap the
+  already-cached 32-molecule training pilot. At the pilot's observed mean of
+  3.50 seconds per xTB calculation, the remaining 9,752 calculations are
+  estimated at about 9.5 serial hours. Actual runtime may differ.
+- Geometry generation remains the previously recorded one-conformer ETKDGv3
+  and GFN2-xTB `--opt normal` workflow with geometry seed 20261120. Outputs
+  are isolated under
+  `results/quantum_benchmarks/herg_karim/qm_qrc/qm_descriptor_coverage_5splits_1024/`.
+  This is feature generation only; no model training, validation-based choice,
+  test-label access, or benchmark evaluation is performed by this stage.

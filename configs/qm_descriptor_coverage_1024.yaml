@@ -1,0 +1,17 @@
+dataset_key: herg_karim
+split_names:
+  - scaffold_r0
+  - scaffold_r1
+  - scaffold_r2
+  - scaffold_r3
+  - scaffold_r4
+training_sizes: [64, 128, 256, 512, 1024]
+sample_seed: 20261119
+geometry_seed: 20261120
+processed_dataset: data/processed/herg_karim.csv
+frozen_split_file: data/splits/herg_karim_scaffold.json
+xtb_executable: .venv-quantum/xtb-6.8.0/stage/bin/xtb.exe
+optimization_level: normal
+timeout_seconds: 900
+cache_dir: results/quantum_benchmarks/herg_karim/qm_qrc/descriptor_cache
+output_dir: results/quantum_benchmarks/herg_karim/qm_qrc/qm_descriptor_coverage_5splits_1024
