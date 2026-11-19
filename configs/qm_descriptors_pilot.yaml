@@ -1,0 +1,12 @@
+dataset_key: herg_karim
+split_name: scaffold_r0
+partition: train
+sample_size: 32
+seed: 20261120
+processed_dataset: data/processed/herg_karim.csv
+frozen_split_file: data/splits/herg_karim_scaffold.json
+xtb_executable: .venv-quantum/xtb-6.8.0/stage/bin/xtb.exe
+optimization_level: normal
+timeout_seconds: 900
+cache_dir: results/quantum_benchmarks/herg_karim/qm_qrc/descriptor_cache
+output_dir: results/quantum_benchmarks/herg_karim/qm_qrc/qm_descriptor_pilot_32

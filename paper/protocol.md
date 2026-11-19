@@ -75,3 +75,36 @@ actually run and does not retroactively preregister it.
 - The six reservoir/depth configurations are reported separately as a
   descriptive ablation. The test metrics are not a five-repeat estimate and
   the sampled holdout must not be reused to select models or tune procedures.
+
+## 2026-11-19 GFN2-xTB descriptor feasibility pilot (training-only)
+
+- This is a computational feasibility pilot, not a model comparison. It uses
+  32 molecule IDs sampled without replacement from the frozen
+  `herg_karim/scaffold_r0` training positions using seed `20261120`; selected
+  row indices are sorted before descriptor generation. No labels are loaded,
+  and no validation or test structures or labels are read.
+- The exact isomeric SMILES in the frozen curated dataset are used as supplied.
+  The existing curation pipeline already normalizes structures, chooses the
+  largest fragment, and uncharges them. This pilot applies no additional
+  protonation, tautomer, fragment, or stereochemistry transformations. The
+  formal charge in each curated SMILES is passed explicitly to xTB.
+- Add explicit hydrogens with RDKit for geometry generation and calculation.
+  Generate exactly one deterministic conformer using ETKDGv3; derive the
+  conformer seed from the fixed base seed, molecule ID, and SMILES checksum.
+  Optimize that conformer with GFN2-xTB `--opt normal`; no conformer search or
+  test-set geometry selection is performed. Calculations run single-threaded.
+- Record HOMO and LUMO energies, the HOMO-LUMO gap, total energy, molecular
+  dipole, and GFN2-xTB static polarizability. Retain total energy in Hartree,
+  also report it per heavy atom, and retain heavy-atom count so size
+  information is not discarded. Save optimized geometries, raw xTB logs,
+  failures, exact molecule IDs, input structure checksums, software versions,
+  executable/parameter checksums, and calculation runtimes.
+- Successful calculations are cached using molecule ID, exact SMILES
+  checksum, RDKit version, xTB executable and GFN2 parameter checksums, seed,
+  geometry method, and optimization level. Failed calculations are logged and
+  cause a non-zero script exit; they are not replaced with default values.
+- Outputs are isolated under
+  `results/quantum_benchmarks/herg_karim/qm_qrc/qm_descriptor_pilot_32/`.
+  This pilot does not tune any feature or model choice and does not authorize
+  QM-QRC test evaluation. Its cost and failure rate must be reviewed before
+  planning a larger descriptor run.
