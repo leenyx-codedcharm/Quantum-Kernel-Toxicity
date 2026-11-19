@@ -108,3 +108,28 @@ actually run and does not retroactively preregister it.
   This pilot does not tune any feature or model choice and does not authorize
   QM-QRC test evaluation. Its cost and failure rate must be reviewed before
   planning a larger descriptor run.
+
+## QM-QRC feature-fusion design (pre-evaluation)
+
+- Compare the structural representation (ECFP4 plus the 14 RDKit descriptors),
+  that representation augmented with QM descriptors, and RDKit descriptors
+  augmented with QM descriptors. The selected QM input columns are
+  `total_energy_hartree_per_heavy_atom`, `homo_ev`, `lumo_ev`,
+  `homo_lumo_gap_ev`, `molecular_dipole_debye`,
+  `molecular_polarizability_au`, and `heavy_atom_count`. The normalized energy
+  and explicit heavy-atom count retain size information without using the
+  unnormalized total energy as a model input.
+- For each representation, fit `StandardScaler` and full-SVD PCA using
+  training features only; compare four- and eight-component outputs. Validation
+  and test features may only be transformed with those saved training
+  parameters. This preprocessing uses no labels.
+- QM rows must match requested molecule IDs and exact structure checksums in
+  row order. Missing descriptors, mismatched identities, or non-finite values
+  are errors, not imputed values. Existing pilot QM rows cover only 32 training
+  molecules and are insufficient for validation/test model evaluation.
+- The supervised feature-selection representation is deferred until its
+  selection algorithm and training-only selection procedure are specified.
+  The eight-component PCA output is supported by preprocessing, but no
+  eight-dimensional circuit encoding is authorized by this design; the
+  existing four-input reservoir remains unchanged until that mapping is
+  specified. No QM-QRC training or test evaluation is performed in this phase.

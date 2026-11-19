@@ -7,11 +7,83 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from qktox.qm_qrc import (
     ClassicalRandomReservoir,
+    MolecularFeatureFusion,
+    QM_FEATURE_COLUMNS,
     calculate_metrics,
     positive_probabilities,
     select_validation_threshold,
     tune_readout,
 )
+
+
+def _fusion_inputs(row_count: int, seed: int = 5):
+    rng = np.random.default_rng(seed)
+    molecule_ids = [f"herg_karim_{index:06d}" for index in range(row_count)]
+    checksums = [f"{index + 1:064x}" for index in range(row_count)]
+    return {
+        "molecule_ids": molecule_ids,
+        "structure_checksums": checksums,
+        "rdkit_descriptors": rng.normal(size=(row_count, 14)),
+        "qm_molecule_ids": molecule_ids.copy(),
+        "qm_structure_checksums": checksums.copy(),
+        "qm_descriptors": rng.normal(size=(row_count, len(QM_FEATURE_COLUMNS))),
+    }
+
+
+@pytest.mark.parametrize("output_dimensions", [4, 8])
+def test_qm_feature_fusion_fits_only_training_rows(output_dimensions):
+    training = _fusion_inputs(20)
+    fusion = MolecularFeatureFusion("rdkit_qm", output_dimensions)
+    train_features = fusion.fit(partition="train", **training)
+    parameters_before_validation = {
+        name: values.copy()
+        for name, values in fusion.preprocessing_parameters.items()
+    }
+
+    validation = _fusion_inputs(3, seed=19)
+    validation["rdkit_descriptors"] *= 1e6
+    validation["qm_descriptors"] *= 1e6
+    validation_features = fusion.transform(partition="val", **validation)
+
+    assert train_features.shape == (20, output_dimensions)
+    assert validation_features.shape == (3, output_dimensions)
+    for name, values in fusion.preprocessing_parameters.items():
+        np.testing.assert_array_equal(values, parameters_before_validation[name])
+    assert fusion.configuration()["preprocessing_fit_partition"] == "train"
+    assert fusion.configuration()["absolute_total_energy_used"] is False
+
+
+def test_ecfp_rdkit_qm_fusion_checks_molecule_identity_and_structure():
+    training = _fusion_inputs(20)
+    training["ecfp4"] = np.zeros((20, 2048), dtype=np.uint8)
+    training["ecfp4"][:, 0] = 1
+    fusion = MolecularFeatureFusion("ecfp4_rdkit_qm", 4)
+    fusion.fit(partition="train", **training)
+    assert fusion.configuration()["input_dimensions"] == 2048 + 14 + len(
+        QM_FEATURE_COLUMNS
+    )
+
+    mismatched = _fusion_inputs(2, seed=23)
+    mismatched["ecfp4"] = np.zeros((2, 2048), dtype=np.uint8)
+    mismatched["qm_molecule_ids"][0] = "herg_karim_999999"
+    with pytest.raises(ValueError, match="molecule IDs"):
+        fusion.transform(partition="val", **mismatched)
+
+    mismatched = _fusion_inputs(2, seed=29)
+    mismatched["ecfp4"] = np.zeros((2, 2048), dtype=np.uint8)
+    mismatched["qm_structure_checksums"][0] = "f" * 64
+    with pytest.raises(ValueError, match="checksums"):
+        fusion.transform(partition="val", **mismatched)
+
+
+def test_feature_fusion_rejects_nontraining_fit_and_unspecified_representation():
+    with pytest.raises(ValueError, match="unsupported molecular representation"):
+        MolecularFeatureFusion("selected_descriptors", 4)
+    with pytest.raises(ValueError, match="only be fitted on the train"):
+        MolecularFeatureFusion("rdkit_qm", 4).fit(
+            partition="val",
+            **_fusion_inputs(20),
+        )
 
 
 def test_classical_random_reservoir_is_fixed_and_dimension_matched():

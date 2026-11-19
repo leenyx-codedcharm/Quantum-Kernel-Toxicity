@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import dataclass, field
 from time import perf_counter
-from typing import Any
+from typing import Any, Literal, Sequence
 
 import numpy as np
 from sklearn.calibration import CalibratedClassifierCV
@@ -23,6 +24,232 @@ from sklearn.metrics import (
     roc_auc_score,
 )
 from sklearn.svm import LinearSVC, SVC
+
+from qktox.quantum_pilot import apply_train_preprocessor, fit_train_preprocessor
+
+
+MolecularRepresentation = Literal[
+    "ecfp4_rdkit",
+    "ecfp4_rdkit_qm",
+    "rdkit_qm",
+]
+QM_FEATURE_COLUMNS = (
+    "total_energy_hartree_per_heavy_atom",
+    "homo_ev",
+    "lumo_ev",
+    "homo_lumo_gap_ev",
+    "molecular_dipole_debye",
+    "molecular_polarizability_au",
+    "heavy_atom_count",
+)
+
+
+class MolecularFeatureFusion:
+    """Fuse structural/QM features and fit scaling/PCA on training rows only."""
+
+    def __init__(
+        self,
+        representation: MolecularRepresentation,
+        output_dimensions: int,
+    ) -> None:
+        if representation not in {"ecfp4_rdkit", "ecfp4_rdkit_qm", "rdkit_qm"}:
+            raise ValueError(f"unsupported molecular representation: {representation}")
+        if output_dimensions not in (4, 8):
+            raise ValueError("output_dimensions must be 4 or 8")
+        self.representation = representation
+        self.output_dimensions = output_dimensions
+        self.preprocessing_parameters: dict[str, np.ndarray] | None = None
+        self.input_dimension: int | None = None
+        self.training_molecule_ids: tuple[str, ...] = ()
+        self.training_structure_checksums: tuple[str, ...] = ()
+
+    def fit(
+        self,
+        *,
+        partition: str,
+        molecule_ids: Sequence[str],
+        structure_checksums: Sequence[str],
+        rdkit_descriptors: np.ndarray,
+        ecfp4: np.ndarray | None = None,
+        qm_molecule_ids: Sequence[str] | None = None,
+        qm_structure_checksums: Sequence[str] | None = None,
+        qm_descriptors: np.ndarray | None = None,
+    ) -> np.ndarray:
+        """Fit train-only scaling/PCA and return the transformed training matrix."""
+        if partition != "train":
+            raise ValueError("feature preprocessing may only be fitted on the train partition")
+        if self.preprocessing_parameters is not None:
+            raise RuntimeError("feature preprocessing is already fitted")
+        ids, checksums = _validate_molecule_identity(molecule_ids, structure_checksums)
+        raw_features = self._compose_features(
+            ids=ids,
+            checksums=checksums,
+            rdkit_descriptors=rdkit_descriptors,
+            ecfp4=ecfp4,
+            qm_molecule_ids=qm_molecule_ids,
+            qm_structure_checksums=qm_structure_checksums,
+            qm_descriptors=qm_descriptors,
+        )
+        self.preprocessing_parameters = fit_train_preprocessor(
+            raw_features, n_components=self.output_dimensions
+        )
+        self.input_dimension = raw_features.shape[1]
+        self.training_molecule_ids = ids
+        self.training_structure_checksums = checksums
+        return apply_train_preprocessor(raw_features, self.preprocessing_parameters)
+
+    def transform(
+        self,
+        *,
+        partition: str,
+        molecule_ids: Sequence[str],
+        structure_checksums: Sequence[str],
+        rdkit_descriptors: np.ndarray,
+        ecfp4: np.ndarray | None = None,
+        qm_molecule_ids: Sequence[str] | None = None,
+        qm_structure_checksums: Sequence[str] | None = None,
+        qm_descriptors: np.ndarray | None = None,
+    ) -> np.ndarray:
+        """Transform a partition using only previously fitted train parameters."""
+        if partition not in {"train", "val", "test"}:
+            raise ValueError("partition must be 'train', 'val', or 'test'")
+        if self.preprocessing_parameters is None or self.input_dimension is None:
+            raise RuntimeError("feature preprocessing must be fitted on train first")
+        ids, checksums = _validate_molecule_identity(molecule_ids, structure_checksums)
+        raw_features = self._compose_features(
+            ids=ids,
+            checksums=checksums,
+            rdkit_descriptors=rdkit_descriptors,
+            ecfp4=ecfp4,
+            qm_molecule_ids=qm_molecule_ids,
+            qm_structure_checksums=qm_structure_checksums,
+            qm_descriptors=qm_descriptors,
+        )
+        if raw_features.shape[1] != self.input_dimension:
+            raise ValueError("transformed feature dimension differs from the training input")
+        return apply_train_preprocessor(raw_features, self.preprocessing_parameters)
+
+    def configuration(self) -> dict[str, Any]:
+        """Return the feature and train-fit provenance without embedding large arrays."""
+        if self.preprocessing_parameters is None:
+            raise RuntimeError("feature preprocessing is not fitted")
+        return {
+            "representation": self.representation,
+            "output_dimensions": self.output_dimensions,
+            "input_dimensions": self.input_dimension,
+            "preprocessing": "StandardScaler then full-SVD PCA",
+            "preprocessing_fit_partition": "train",
+            "preprocessing_fit_molecule_count": len(self.training_molecule_ids),
+            "training_molecule_ids_sha256": _sequence_sha256(
+                self.training_molecule_ids
+            ),
+            "training_structure_checksums_sha256": _sequence_sha256(
+                self.training_structure_checksums
+            ),
+            "qm_feature_columns": (
+                list(QM_FEATURE_COLUMNS)
+                if self.representation in {"ecfp4_rdkit_qm", "rdkit_qm"}
+                else []
+            ),
+            "absolute_total_energy_used": False,
+            "reservoir_input_mapping": (
+                "four-dimensional encoding only; eight-dimensional circuit mapping deferred"
+            ),
+        }
+
+    def _compose_features(
+        self,
+        *,
+        ids: tuple[str, ...],
+        checksums: tuple[str, ...],
+        rdkit_descriptors: np.ndarray,
+        ecfp4: np.ndarray | None,
+        qm_molecule_ids: Sequence[str] | None,
+        qm_structure_checksums: Sequence[str] | None,
+        qm_descriptors: np.ndarray | None,
+    ) -> np.ndarray:
+        rdkit_values = _validate_feature_component(
+            rdkit_descriptors, len(ids), 14, "RDKit descriptors"
+        )
+        components = []
+        if self.representation in {"ecfp4_rdkit", "ecfp4_rdkit_qm"}:
+            if ecfp4 is None:
+                raise ValueError("this representation requires ECFP4 fingerprints")
+            fingerprints = _validate_feature_component(ecfp4, len(ids), 2048, "ECFP4")
+            if not np.isin(fingerprints, (0, 1)).all():
+                raise ValueError("ECFP4 fingerprints must contain only binary values")
+            components.append(fingerprints)
+        elif ecfp4 is not None:
+            raise ValueError("rdkit_qm representation must not include ECFP4")
+        components.append(rdkit_values)
+
+        requires_qm = self.representation in {"ecfp4_rdkit_qm", "rdkit_qm"}
+        supplied_qm = any(
+            value is not None
+            for value in (qm_molecule_ids, qm_structure_checksums, qm_descriptors)
+        )
+        if requires_qm and not all(
+            value is not None
+            for value in (qm_molecule_ids, qm_structure_checksums, qm_descriptors)
+        ):
+            raise ValueError("this representation requires aligned QM descriptors")
+        if not requires_qm and supplied_qm:
+            raise ValueError("ecfp4_rdkit representation must not include QM descriptors")
+        if requires_qm:
+            qm_ids, qm_checksums = _validate_molecule_identity(
+                qm_molecule_ids, qm_structure_checksums
+            )
+            if qm_ids != ids:
+                raise ValueError("QM descriptor molecule IDs must match feature row order")
+            if qm_checksums != checksums:
+                raise ValueError("QM descriptor structure checksums do not match")
+            components.append(
+                _validate_feature_component(
+                    qm_descriptors, len(ids), len(QM_FEATURE_COLUMNS), "QM descriptors"
+                )
+            )
+        return np.concatenate(components, axis=1)
+
+
+def _validate_molecule_identity(
+    molecule_ids: Sequence[str] | None,
+    structure_checksums: Sequence[str] | None,
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    if molecule_ids is None or structure_checksums is None:
+        raise ValueError("molecule IDs and structure checksums are required")
+    ids = tuple(str(value) for value in molecule_ids)
+    checksums = tuple(str(value) for value in structure_checksums)
+    if not ids or len(ids) != len(checksums) or len(set(ids)) != len(ids):
+        raise ValueError("molecule IDs and structure checksums must be non-empty and aligned")
+    if any(not value for value in ids):
+        raise ValueError("molecule IDs must be non-empty")
+    if any(
+        len(value) != 64 or any(character not in "0123456789abcdef" for character in value.lower())
+        for value in checksums
+    ):
+        raise ValueError("structure checksums must be SHA-256 hex strings")
+    return ids, checksums
+
+
+def _validate_feature_component(
+    features: np.ndarray | None,
+    row_count: int,
+    column_count: int,
+    description: str,
+) -> np.ndarray:
+    if features is None:
+        raise ValueError(f"{description} are required")
+    values = np.asarray(features, dtype=np.float64)
+    if values.shape != (row_count, column_count) or not np.isfinite(values).all():
+        raise ValueError(
+            f"{description} must be a finite matrix with shape "
+            f"({row_count}, {column_count})"
+        )
+    return values
+
+
+def _sequence_sha256(values: Sequence[str]) -> str:
+    return hashlib.sha256("\n".join(values).encode("utf-8")).hexdigest()
 
 
 @dataclass
