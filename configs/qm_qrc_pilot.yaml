@@ -1,0 +1,28 @@
+dataset_key: herg_karim
+split_name: scaffold_r0
+seed: 20261119
+source_pilot: results/quantum_fidelity/fidelity_statevector_pilot_r0_final
+sample_sizes:
+  train: 64
+  val: 128
+  test: 128
+feature_representation:
+  name: ecfp4_plus_rdkit_descriptors
+  source_fitted_preprocessing: true
+  input_dimensions: 4
+reservoir:
+  qubits: 4
+  encoding_layers: [2, 4, 6]
+  entanglement: linear
+  observable_set: pauli_xyz_and_adjacent_zz
+  classical_control: fixed_tanh_random_recurrent_reservoir
+readouts:
+  names: [ridge, logistic_regression, rbf_svm, linear_svm]
+  regularization_values: [0.01, 0.1, 1.0, 10.0, 100.0]
+  selection_metric: validation_auroc
+  threshold_metric: validation_balanced_accuracy
+calibration:
+  method: sigmoid
+  folds: 5
+  fit_partition: train
+output_dir: results/quantum_benchmarks/herg_karim/qm_qrc/pilot_scaffold_r0

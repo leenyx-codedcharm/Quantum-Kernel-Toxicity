@@ -36,3 +36,42 @@ No performance results are asserted here. A result without a quantum gain is val
 - Validation molecules are used only to select the C value and unweighted/balanced
   class weight. The validation threshold maximizes balanced accuracy. Test data
   remains untouched until these choices are locked.
+
+## 2026-11-19 QM-QRC structural pilot (exploratory; not preregistered)
+
+The first QM-QRC pilot was executed before this methods record was added. Its
+sampled test labels and aggregate metrics have therefore been observed; treat all
+results as exploratory, do not use them to select future configurations, and do
+not describe this pilot as confirmatory evidence. This note records what was
+actually run and does not retroactively preregister it.
+
+- Dataset and sample: `herg_karim/scaffold_r0`, using the exact 64/128/128
+  molecule IDs from the existing fidelity pilot lock. The sample is a subset
+  of the frozen partitions, not a new independent test set.
+- Structural input: concatenated ECFP4-2048 and the 14 committed RDKit
+  descriptors, transformed by the saved StandardScaler/PCA fitted on the same
+  64 training molecules; PCA output dimension is four. No QM descriptors were
+  used.
+- Quantum reservoir: exact four-qubit statevector simulation. At every step,
+  encode each input component `x_i` with `RY(pi*tanh(x_i))` and
+  `RZ(pi/2*tanh(x_i))`, apply fixed per-qubit `RX`, `RY`, `RZ` angles sampled
+  uniformly from `[-pi, pi]` with seed `20261119`, then apply the linear CNOT
+  chain `q0->q1->q2->q3`. Re-upload the same input at each of 2, 4, or 6
+  steps; shorter depths use prefixes of the same seeded angle table. The
+  reservoir is not optimized. After each step, record all single-qubit X, Y,
+  Z expectations and adjacent ZZ correlations (15 features per step).
+- Classical reservoir control: fixed tanh recurrent states with width 15,
+  input weights drawn from a zero-mean normal with standard deviation
+  `1/sqrt(input_dimension)`, recurrent weights with standard deviation
+  `0.5/sqrt(width)`, and uniform `[-pi, pi]` bias; seed `20261119`. Each
+  recurrent state is retained to match the quantum feature dimension at each
+  depth.
+- Readouts: Ridge classifier, logistic regression, RBF-SVM, and linear SVM.
+  Search regularization values `[0.01, 0.1, 1, 10, 100]`; Ridge uses
+  `alpha=1/C`. Select the readout and regularization by validation AUROC and
+  select its threshold by validation balanced accuracy. Sigmoid probability
+  calibration for margin-based classifiers uses five folds of training data
+  only. The selected estimator is fit on training molecules only.
+- The six reservoir/depth configurations are reported separately as a
+  descriptive ablation. The test metrics are not a five-repeat estimate and
+  the sampled holdout must not be reused to select models or tune procedures.
