@@ -54,3 +54,24 @@ results/**/models/
 .env
 .env.*
 
+
+# Temporary xTB molecular calculation outputs
+results/**/runtime_logs/
+*.out
+*.err
+*.xyz
+results/**/progress.json
+
+# Local molecular calculation caches
+results/**/xtb_cache/
+results/**/qm_cache/
+
+# Local Python environments
+
+# Local generated archives
+Quantum_Kernel_Toxicity_Results.zip
+
+# Local quantum calculation caches
+results/**/descriptor_cache/
+pre_quantum_readiness.txt
+

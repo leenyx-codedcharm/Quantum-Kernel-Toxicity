@@ -1,4 +1,34 @@
-﻿# Quantum Kernel Toxicity
+﻿
+cd D:\qk-tox
+
+Write-Host "`n===== CONFIGURATION ====="
+
+Get-Content .\configs\qm_descriptor_coverage_1024.yaml
+
+Write-Host "`n===== PROGRESS AND OUTPUT LOGIC ====="
+
+Select-String `
+    -Path .\scripts\18_generate_qm_descriptor_coverage.py `
+    -Pattern "total|target|expected|progress|cache|output|coverage|to_csv|flush|training_size" `
+    -Context 2,2
+
+Write-Host "`n===== PYTHON WORKERS ====="
+
+Get-CimInstance Win32_Process |
+Where-Object {
+    $_.Name -eq "python.exe" -or $_.Name -eq "xtb.exe"
+} |
+Select-Object ProcessId, ParentProcessId, Name, CreationDate, CommandLine |
+Format-List
+
+Write-Host "`n===== QM-QRC OUTPUTS ====="
+
+Get-ChildItem .\results\quantum_benchmarks\herg_karim\qm_qrc `
+    -Recurse -File -ErrorAction SilentlyContinue |
+Sort-Object LastWriteTime -Descending |
+Select-Object -First 15 Name, Length, LastWriteTime |
+Format-Table -AutoSize
+# Quantum Kernel Toxicity
 # Advanced Quantum Model Implementation and Benchmarking
 
 You are working on the Quantum Kernel Toxicity research repository.

@@ -1,0 +1,21 @@
+dataset_key: herg_karim
+split_name: scaffold_r0
+seed: 20261118
+source_pilot: results/quantum_fidelity/fidelity_statevector_pilot_r0_final
+qubits: 4
+feature_map:
+  type: ZZFeatureMap
+  repetitions: 1
+  entanglement: linear
+ansatz:
+  type: RealAmplitudes
+  repetitions: 2
+  entanglement: linear
+optimizer:
+  name: SLSQP
+  maxiter: 30
+  ftol: 1.0e-6
+loss: cross_entropy
+tuning:
+  selection_metric: validation_auroc
+  threshold_metric: validation_balanced_accuracy
