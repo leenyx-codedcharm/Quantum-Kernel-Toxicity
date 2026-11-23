@@ -1,4 +1,4 @@
-﻿# Quantum Kernel Toxicity — Research Progress
+# Quantum Kernel Toxicity — Research Progress
 
 Last updated: 24 November 2026
 

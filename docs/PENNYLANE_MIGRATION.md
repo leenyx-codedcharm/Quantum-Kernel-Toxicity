@@ -1,4 +1,4 @@
-﻿# PennyLane Migration and Hybrid VQC
+# PennyLane Migration and Hybrid VQC
 
 ## Purpose
 
@@ -15,7 +15,7 @@ Create the isolated environment on Windows:
 
 ```powershell
 py -3.11 -m venv .venv-pennylane
-.\.venv-pennylane\Scripts\python.exe -m pip install -r requirements-pennylane.txt
+.\.venv-pennylane\Scripts\python.exe -m pip install -r configs/pennylane_requirements_lock.txt
 ```
 
 The environment is intentionally separate from the existing RDKit

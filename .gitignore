@@ -75,3 +75,25 @@ Quantum_Kernel_Toxicity_Results.zip
 results/**/descriptor_cache/
 pre_quantum_readiness.txt
 
+
+# Local Python environments
+.venv/
+.venv-*/
+venv/
+
+# Python and test caches
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local editor and operating-system files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local quantum chemistry caches and runtime scratch
+results/**/descriptor_cache/
+results/**/runtime_logs/
+results/**/xtb_cache/
+results/**/qm_cache/

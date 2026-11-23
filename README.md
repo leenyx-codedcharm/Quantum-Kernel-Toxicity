@@ -99,7 +99,7 @@ When experiment scripts are added, configure their seeds and settings in `config
 - `results/`: generated predictions and reports; do not commit large caches or model weights.
 
 <!-- PENNYLANE-RESEARCH-STATUS -->
-## Current Research Status — November 2026
+## Current Research Status â€” November 2026
 
 This repository evaluates classical and quantum machine learning for
 hERG inhibition prediction using the hERG_Karim molecular dataset.
@@ -143,3 +143,93 @@ The project does not claim quantum advantage. Further five-scaffold
 benchmarking, QM-enhanced experiments and literature review remain
 in progress.
 <!-- END PENNYLANE-RESEARCH-STATUS -->
+
+---
+
+# Research Programme: Quantum Machine Learning for hERG Prediction
+
+## Research Overview
+
+This project investigates classical, quantum and hybrid quantum-classical
+machine learning methods for molecular hERG inhibition prediction.
+
+The research examines quantum kernels, quantum reservoir computing,
+variational quantum classifiers and molecular electronic descriptors.
+
+No quantum advantage is currently claimed. Existing classical
+baselines outperform the exploratory quantum experiments.
+
+## Dataset
+
+The curated hERG_Karim dataset contains 10,824 molecules.
+
+| Class | Label | Samples | Percentage |
+|---|---:|---:|---:|
+| Negative | 0 | 5,482 | 50.65% |
+| Positive | 1 | 5,342 | 49.35% |
+| Total | | 10,824 | 100% |
+
+Molecular representations:
+- 2,048-bit ECFP4 fingerprints.
+- 14 RDKit descriptors.
+- Four-dimensional PCA representation for the initial quantum pilot.
+
+## Research Results
+
+Previously reported five-scaffold classical baselines:
+
+| Model | Positive F1 | AUROC |
+|---|---:|---:|
+| Random Forest | 0.7833 | 0.8759 |
+| LightGBM | 0.7666 | 0.8616 |
+| Tanimoto-SVM | 0.7631 | 0.8605 |
+
+Exploratory quantum results:
+
+| Model | Positive F1 | AUROC |
+|---|---:|---:|
+| Quantum Reservoir (2 layers) | 0.4483 | 0.5469 |
+| Quantum Reservoir (4 layers) | 0.3689 | 0.5043 |
+| Quantum Reservoir (6 layers) | 0.1333 | 0.5332 |
+| PennyLane Hybrid VQC | 0.4771 | 0.5448 |
+
+**Evaluation distinction:** The classical results above are five-scaffold results, while the quantum results are from a single exploratory pilot. They are not directly comparable as final benchmark estimates.
+
+## PennyLane Implementation
+
+The project has migrated its new quantum development to PennyLane.
+
+Completed:
+- Four-qubit QRC reproduction.
+- Numerical parity at 2, 4 and 6 encoding layers.
+- Full 320-molecule pilot feature generation.
+- PennyLane Hybrid VQC with data re-uploading.
+- Validation-based model selection and separate test evaluation.
+
+The maximum observed Qiskit–PennyLane feature difference was approximately 1.55e-15.
+
+## Research Documentation
+
+- [Project overview](docs/PROJECT_OVERVIEW.md)
+- [Experimental status](docs/EXPERIMENTAL_STATUS.md)
+- [Reproducibility guide](docs/REPRODUCIBILITY.md)
+- [Research progress](docs/RESEARCH_PROGRESS.md)
+- [PennyLane migration](docs/PENNYLANE_MIGRATION.md)
+
+## Current Research Priorities
+
+1. Complete a verified Q1 literature review.
+2. Investigate trainable data-reuploading quantum architectures.
+3. Evaluate different training-set sizes.
+4. Integrate QM descriptors into hybrid models.
+5. Complete matched five-scaffold benchmarking.
+6. Assess whether quantum representations provide measurable incremental value.
+
+## Scientific Reporting
+
+All experiments must preserve frozen scaffold partitions, training-only
+preprocessing, validation-based model selection and independent final
+test evaluation.
+
+Negative and inconclusive findings are retained and reported.
+Circuit equivalence does not establish predictive advantage.
