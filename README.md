@@ -97,3 +97,49 @@ When experiment scripts are added, configure their seeds and settings in `config
 - `data/splits/`: committed frozen splits and cluster assignments.
 - `paper/`: research protocol.
 - `results/`: generated predictions and reports; do not commit large caches or model weights.
+
+<!-- PENNYLANE-RESEARCH-STATUS -->
+## Current Research Status — November 2026
+
+This repository evaluates classical and quantum machine learning for
+hERG inhibition prediction using the hERG_Karim molecular dataset.
+
+### Dataset
+- 10,824 curated molecules
+- 5,482 negative and 5,342 positive samples
+- 2,048-bit ECFP4 fingerprints
+- 14 RDKit descriptors
+- Five frozen scaffold splits
+
+### Classical baselines
+| Model | Positive F1 | AUROC |
+|---|---:|---:|
+| Random Forest | 0.7833 | 0.8759 |
+| LightGBM | 0.7666 | 0.8616 |
+| Tanimoto-SVM | 0.7631 | 0.8605 |
+
+These are previously reported five-scaffold results.
+
+### PennyLane development
+- PennyLane 0.45.1 isolated environment
+- Four-qubit QRC reproduced at 2, 4 and 6 layers
+- Full 320-molecule pilot feature parity verified
+- Exploratory data-reuploading Hybrid VQC implemented
+
+The Hybrid VQC pilot achieved AUROC 0.5448 and positive F1 0.4771
+on one 128-molecule test subset. It has not demonstrated superiority
+over the classical baselines.
+
+### Research documentation
+- [Research progress](docs/RESEARCH_PROGRESS.md)
+- [PennyLane migration](docs/PENNYLANE_MIGRATION.md)
+
+### Reproducibility
+The original Qiskit experiments, frozen data splits and previous
+results are retained. New PennyLane experiments use a separate
+environment and output directories.
+
+The project does not claim quantum advantage. Further five-scaffold
+benchmarking, QM-enhanced experiments and literature review remain
+in progress.
+<!-- END PENNYLANE-RESEARCH-STATUS -->

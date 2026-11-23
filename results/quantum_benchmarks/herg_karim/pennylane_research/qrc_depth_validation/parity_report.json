@@ -1,0 +1,41 @@
+{
+  "comparison": "Qiskit vs PennyLane quantum reservoir depth validation",
+  "pennylane_version": "0.45.1",
+  "qubits": 4,
+  "depths": [
+    {
+      "layers": 2,
+      "feature_shape": [
+        8,
+        30
+      ],
+      "max_absolute_error": 8.881784197001252e-16,
+      "mean_absolute_error": 1.5286347130235209e-16,
+      "tolerance": 1e-08,
+      "passed": true
+    },
+    {
+      "layers": 4,
+      "feature_shape": [
+        8,
+        60
+      ],
+      "max_absolute_error": 8.881784197001252e-16,
+      "mean_absolute_error": 2.0018257161867152e-16,
+      "tolerance": 1e-08,
+      "passed": true
+    },
+    {
+      "layers": 6,
+      "feature_shape": [
+        8,
+        90
+      ],
+      "max_absolute_error": 8.881784197001252e-16,
+      "mean_absolute_error": 2.18439632701517e-16,
+      "tolerance": 1e-08,
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

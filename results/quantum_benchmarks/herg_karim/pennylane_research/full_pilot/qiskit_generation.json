@@ -1,0 +1,46 @@
+{
+  "backend": "Qiskit Statevector",
+  "depths": [
+    2,
+    4,
+    6
+  ],
+  "descriptor_columns": [
+    "MolWt",
+    "ExactMolWt",
+    "MolLogP",
+    "TPSA",
+    "NumHDonors",
+    "NumHAcceptors",
+    "NumRotatableBonds",
+    "HeavyAtomCount",
+    "RingCount",
+    "NumAromaticRings",
+    "NumAliphaticRings",
+    "FractionCSP3",
+    "NumHeteroatoms",
+    "FormalCharge"
+  ],
+  "entanglement": "linear CNOT",
+  "input_checksums": {
+    "data\\processed\\features\\hERG_Karim\\ecfp4_2048.npz": "6dc033d330597db42b8af68f54ff1bd7eb6a035803ff605cf3eb51353bec000b",
+    "data\\processed\\features\\hERG_Karim\\feature_manifest.json": "9d643eb53aeaa097f0b770d014698f414970741127eac28e887c969f44501298",
+    "data\\processed\\features\\hERG_Karim\\rdkit_descriptors.csv": "c46a599e638837e986da3f8cf3d1233c930b9d4c872bfa1158eaaba0777c34f0",
+    "data\\processed\\herg_karim.csv": "33d946db181de43fb37cb0c6f64864684587c035b68ef32338e6ce3d5fc1f32c",
+    "data\\splits\\herg_karim_scaffold.json": "9445819e21204de914fad5252a6a5db8c6c0d83c17e29c455cbed6ce85335ba3",
+    "results\\quantum_fidelity\\fidelity_statevector_pilot_r0_final\\locked_configuration.json": "7a548bdfe4b5a318a227f1c16aafe5c9bcc06f9f01fa7864203696259e1e0600",
+    "results\\quantum_fidelity\\fidelity_statevector_pilot_r0_final\\preprocessing\\scaler_pca_parameters.npz": "f8bea18542e766506c91a16700f501b307deee8c63d1a6572c7094a9c844219d"
+  },
+  "input_dimension": 4,
+  "partition_sizes": {
+    "test": 128,
+    "train": 64,
+    "val": 128
+  },
+  "qm_descriptors_included": false,
+  "qubits": 4,
+  "runtime_seconds": 14.2059033000005,
+  "scope": "structural-only pilot; ECFP4 plus RDKit, train-fitted scaler/PCA",
+  "seed": 20261119,
+  "shots": null
+}

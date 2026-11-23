@@ -1,0 +1,22 @@
+{
+  "status": "test_evaluated_after_validation_lock",
+  "selection_lock_sha256": "e6cbfd7b1d030b1576ef368a76922c4d12010e6083caa21d938d4e41c9c2e1a5",
+  "selected_seed": 20261120,
+  "selected_epoch": 30,
+  "validation_auroc": 0.5617784328174895,
+  "validation_threshold": 0.6453112909192956,
+  "test_metrics": {
+    "threshold": 0.6453112909192956,
+    "accuracy": 0.5546875,
+    "precision": 0.43333333333333335,
+    "recall": 0.5306122448979592,
+    "positive_f1": 0.47706422018348627,
+    "macro_f1": 0.544654559071335,
+    "balanced_accuracy": 0.5501162490312581,
+    "MCC": 0.09763152171012884,
+    "AUROC": 0.5448204598295013,
+    "AUPRC": 0.41827282650922765
+  },
+  "test_molecules": 128,
+  "qm_descriptors_included": false
+}

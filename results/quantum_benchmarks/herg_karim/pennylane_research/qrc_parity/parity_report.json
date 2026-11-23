@@ -1,0 +1,17 @@
+{
+  "comparison": "Qiskit vs PennyLane QRC numerical parity",
+  "qubits": 4,
+  "encoding_layers": 2,
+  "seed": 20261119,
+  "entanglement": "linear CNOT",
+  "shots": null,
+  "feature_shape": [
+    5,
+    30
+  ],
+  "absolute_tolerance": 1e-08,
+  "max_absolute_error": 7.771561172376096e-16,
+  "mean_absolute_error": 1.4938860333953603e-16,
+  "parity_passed": true,
+  "pennylane_version": "0.45.1"
+}

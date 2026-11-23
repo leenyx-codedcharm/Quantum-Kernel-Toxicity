@@ -1,0 +1,138 @@
+{
+  "absolute_tolerance": 1e-08,
+  "all_passed": true,
+  "backend": "PennyLane Lightning Statevector",
+  "comparisons": [
+    {
+      "depth": 2,
+      "feature_shape": [
+        64,
+        30
+      ],
+      "max_absolute_error": 9.992007221626409e-16,
+      "mean_absolute_error": 1.499316079275892e-16,
+      "molecules": 64,
+      "partition": "train",
+      "passed": true,
+      "tolerance": 1e-08
+    },
+    {
+      "depth": 2,
+      "feature_shape": [
+        128,
+        30
+      ],
+      "max_absolute_error": 1.2212453270876722e-15,
+      "mean_absolute_error": 1.6309274939316335e-16,
+      "molecules": 128,
+      "partition": "val",
+      "passed": true,
+      "tolerance": 1e-08
+    },
+    {
+      "depth": 2,
+      "feature_shape": [
+        128,
+        30
+      ],
+      "max_absolute_error": 1.2212453270876722e-15,
+      "mean_absolute_error": 1.594763704592927e-16,
+      "molecules": 128,
+      "partition": "test",
+      "passed": true,
+      "tolerance": 1e-08
+    },
+    {
+      "depth": 4,
+      "feature_shape": [
+        64,
+        60
+      ],
+      "max_absolute_error": 1.2212453270876722e-15,
+      "mean_absolute_error": 1.8940763490323902e-16,
+      "molecules": 64,
+      "partition": "train",
+      "passed": true,
+      "tolerance": 1e-08
+    },
+    {
+      "depth": 4,
+      "feature_shape": [
+        128,
+        60
+      ],
+      "max_absolute_error": 1.4432899320127035e-15,
+      "mean_absolute_error": 1.949641992716588e-16,
+      "molecules": 128,
+      "partition": "val",
+      "passed": true,
+      "tolerance": 1e-08
+    },
+    {
+      "depth": 4,
+      "feature_shape": [
+        128,
+        60
+      ],
+      "max_absolute_error": 1.2212453270876722e-15,
+      "mean_absolute_error": 1.9256574077821352e-16,
+      "molecules": 128,
+      "partition": "test",
+      "passed": true,
+      "tolerance": 1e-08
+    },
+    {
+      "depth": 6,
+      "feature_shape": [
+        64,
+        90
+      ],
+      "max_absolute_error": 1.2212453270876722e-15,
+      "mean_absolute_error": 2.1461239903264318e-16,
+      "molecules": 64,
+      "partition": "train",
+      "passed": true,
+      "tolerance": 1e-08
+    },
+    {
+      "depth": 6,
+      "feature_shape": [
+        128,
+        90
+      ],
+      "max_absolute_error": 1.5543122344752192e-15,
+      "mean_absolute_error": 2.2462878950937785e-16,
+      "molecules": 128,
+      "partition": "val",
+      "passed": true,
+      "tolerance": 1e-08
+    },
+    {
+      "depth": 6,
+      "feature_shape": [
+        128,
+        90
+      ],
+      "max_absolute_error": 1.2212453270876722e-15,
+      "mean_absolute_error": 2.1992440616623626e-16,
+      "molecules": 128,
+      "partition": "test",
+      "passed": true,
+      "tolerance": 1e-08
+    }
+  ],
+  "depths": [
+    2,
+    4,
+    6
+  ],
+  "partition_sizes": {
+    "test": 128,
+    "train": 64,
+    "val": 128
+  },
+  "pennylane_version": "0.45.1",
+  "qm_descriptors_included": false,
+  "qubits": 4,
+  "runtime_seconds": 17.145475400000578
+}

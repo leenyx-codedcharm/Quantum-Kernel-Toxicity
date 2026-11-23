@@ -1,0 +1,44 @@
+{
+  "status": "validation_locked_test_not_evaluated",
+  "recovered_after_manifest_error": true,
+  "architecture": "PennyLane hybrid data-reuploading VQC",
+  "dataset": "herg_karim",
+  "split": "scaffold_r0",
+  "qubits": 4,
+  "reupload_layers": 2,
+  "entanglement": "linear CNOT",
+  "observables": "four local Z plus three adjacent ZZ",
+  "readout": "jointly trained linear sigmoid head",
+  "optimizer": "PennyLane Adam",
+  "learning_rate": 0.025,
+  "max_epochs": 100,
+  "early_stopping_patience": 18,
+  "shots": null,
+  "seed_candidates": [
+    {
+      "seed": 20261119,
+      "best_epoch": 25,
+      "epochs_run": 43,
+      "validation_auroc": 0.5598133136821419
+    },
+    {
+      "seed": 20261120,
+      "best_epoch": 30,
+      "epochs_run": 48,
+      "validation_auroc": 0.5617784328174895
+    }
+  ],
+  "selected_seed": 20261120,
+  "selected_epoch": 30,
+  "validation_auroc": 0.5617784328174895,
+  "validation_threshold": 0.6453112909192956,
+  "validation_balanced_accuracy": 0.5997297961188897,
+  "sample_sizes": {
+    "train": 64,
+    "val": 128,
+    "test": 128
+  },
+  "qm_descriptors_included": false,
+  "test_labels_accessed_for_selection": false,
+  "pennylane_version": "0.45.1"
+}
